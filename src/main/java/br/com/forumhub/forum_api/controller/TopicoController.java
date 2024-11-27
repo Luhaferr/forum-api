@@ -1,9 +1,6 @@
 package br.com.forumhub.forum_api.controller;
 
-import br.com.forumhub.forum_api.domain.topicos.DadosCriarTopico;
-import br.com.forumhub.forum_api.domain.topicos.DadosListarTopico;
-import br.com.forumhub.forum_api.domain.topicos.TopicosRepository;
-import br.com.forumhub.forum_api.domain.topicos.CriacaoDeTopico;
+import br.com.forumhub.forum_api.domain.topicos.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,4 +29,13 @@ public class TopicoController {
     public Page<DadosListarTopico> listar(@PageableDefault(size = 10, sort = {"dataCriacao"})Pageable paginacao) {
         return repository.findAll(paginacao).map(DadosListarTopico::new);
     }
+
+    @GetMapping("/{id}")
+    public DadosDetalharTopico detalhar(@PathVariable Long id) {
+        Topico topico = repository.getReferenceById(id);
+        return new DadosDetalharTopico(topico);
+    }
+
+
+
 }

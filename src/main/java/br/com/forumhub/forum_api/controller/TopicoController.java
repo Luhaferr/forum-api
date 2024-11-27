@@ -1,8 +1,8 @@
 package br.com.forumhub.forum_api.controller;
 
 import br.com.forumhub.forum_api.domain.topicos.DadosCriarTopico;
-import br.com.forumhub.forum_api.domain.topicos.Topico;
 import br.com.forumhub.forum_api.domain.topicos.TopicosRepository;
+import br.com.forumhub.forum_api.domain.topicos.CriacaoDeTopico;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,9 +18,12 @@ public class TopicoController {
     @Autowired
     private TopicosRepository repository;
 
+    @Autowired
+    private CriacaoDeTopico validador;
+
     @PostMapping
     @Transactional
     public void criarTopico(@RequestBody @Valid DadosCriarTopico dados) {
-        repository.save(new Topico(dados));
+        validador.criar(dados);
     }
 }

@@ -17,12 +17,12 @@ public class TopicoController {
     private TopicosRepository repository;
 
     @Autowired
-    private CriacaoDeTopico validador;
+    private GerenciadorDeTopico gerenciadorDeTopico;
 
     @PostMapping
     @Transactional
     public void criarTopico(@RequestBody @Valid DadosCriarTopico dados) {
-        validador.criar(dados);
+        gerenciadorDeTopico.criar(dados);
     }
 
     @GetMapping
@@ -36,6 +36,14 @@ public class TopicoController {
         return new DadosDetalharTopico(topico);
     }
 
+    @PutMapping("/{id}")
+    @Transactional
+    public DadosDetalharTopico atualizar (@RequestBody @Valid DadosCriarTopico dados, @PathVariable Long id) {
+        Topico topico = repository.getReferenceById(id);
+        gerenciadorDeTopico.atualizar(dados);
+        topico.atualizarTopico(dados);
 
+        return new DadosDetalharTopico(topico);
+    }
 
 }

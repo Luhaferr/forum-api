@@ -1,19 +1,24 @@
 package br.com.forumhub.forum_api.domain.topicos;
 
+import br.com.forumhub.forum_api.domain.topicos.validacoes.ValidadorTopicoMesmoNomeEMensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CriacaoDeTopico {
+public class GerenciadorDeTopico {
 
     @Autowired
     private TopicosRepository repository;
 
+    @Autowired
+    private ValidadorTopicoMesmoNomeEMensagem validador;
+
     public void criar(DadosCriarTopico dados) {
-        var topicoComMesmoTituloEMensagem = repository.existsByTituloIgnoreCaseAndMensagemIgnoreCase(dados.titulo(), dados.mensagem());
-        if (topicoComMesmoTituloEMensagem) {
-            throw new ValidacaoException("Já existe um tópico com o mesmo título e mensagem");
-        }
+        validador.validar(dados);
         repository.save(new Topico(dados));
+    }
+
+    public void atualizar(DadosCriarTopico dados) {
+        validador.validar(dados);
     }
 }

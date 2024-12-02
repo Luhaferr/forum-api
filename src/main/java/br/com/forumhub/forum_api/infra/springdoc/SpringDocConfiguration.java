@@ -21,8 +21,8 @@ public class SpringDocConfiguration {
                                         .scheme("bearer")
                                         .bearerFormat("JWT")))
                 .info(new Info()
-                        .title("Voll.med API")
-                        .description("API Rest da aplicação Voll.med, contendo as funcionalidades de CRUD de médicos e de pacientes, além de agendamento e cancelamento de consultas")
+                        .title("Forum Hub API")
+                        .description("API Rest da aplicação Forum Hub Api, contendo as funcionalidades de CRUD de tópicos em um forum, além de autenticação de usuários com Spring Security e JWT Token")
                         .contact(new Contact()
                                 .name("Luiz Ferreira")
                                 .email("luhaferr@gmail.com")));
